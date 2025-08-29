@@ -1,0 +1,704 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+\pagestyle{empty}
+ 
+
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+    \setlength{\premulticols}{1pt}
+    \setlength{\postmulticols}{1pt}
+    \setlength{\multicolsep}{1pt}
+    \setlength{\columnsep}{2pt}
+
+    \begin{center}
+        \Large{\textbf{\LaTeXe\ 速查表}} \\
+    \end{center}
+
+    \section{文档类}
+    \begin{tabular}{@{}ll@{}}
+        \verb!book!    & 默认为双面。                                \\
+        \verb!report!  & 没有 \verb!\part! 分割。                    \\
+        \verb!article! & 没有 \verb!\part! 或 \verb!\chapter! 分割。 \\
+        \verb!letter!  & 信件 (?)。                                  \\
+        \verb!slides!  & 大号无衬线字体。
+    \end{tabular}
+
+    在文档最开始使用：
+    \verb!\documentclass{!\textit{类}\verb!}!。使用
+    \verb!\begin{document}! 开始内容，使用 \verb!\end{document}!
+    结束文档。
+
+
+    \subsection{常用 \texttt{documentclass} 选项}
+    \newlength{\MyLen}
+    \settowidth{\MyLen}{\texttt{letterpaper}/\texttt{a4paper} \ }
+    \begin{tabular}{@{}p{\the\MyLen}%
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \texttt{10pt}/\texttt{11pt}/\texttt{12pt} & 字体大小。         \\
+        \texttt{letterpaper}/\texttt{a4paper}     & 纸张大小。         \\
+        \texttt{twocolumn}                        & 使用两列。         \\
+        \texttt{twoside}                          & 设置双面边距。     \\
+        \texttt{landscape}                        & 横向方向。必须使用
+        \texttt{dvips -t landscape}。                                  \\
+        \texttt{draft}                            & 双倍行距。
+    \end{tabular}
+
+    用法：
+    \verb!\documentclass[!\textit{选项,选项}\verb!]{!\textit{类}\verb!}!。
+
+
+    \subsection{宏包}
+    \settowidth{\MyLen}{\texttt{multicol} }
+    \begin{tabular}{@{}p{\the\MyLen}
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \texttt{fullpage} & 使用1英寸边距。                          \\
+        \texttt{anysize}  & 设置边距：\verb!\marginsize{!\textit{左}
+        \verb!}{!\textit{右}\verb!}{!\textit{上}
+        \verb!}{!\textit{下}\verb!}!。                               \\
+        \texttt{multicol} & 使用 $n$ 列：
+        \verb!\begin{multicols}{!$n$\verb!}!。                       \\
+        \texttt{latexsym} & 使用 \LaTeX\ 符号字体。                  \\
+        \texttt{graphicx} & 显示图像：
+        \verb!\includegraphics[width=!
+        \textit{x}\verb!]{!
+        \textit{文件}\verb!}!。                                      \\
+        \texttt{url}      & 插入URL：\verb!\url{!
+        \textit{http://\ldots}
+        \verb!}!。
+    \end{tabular}
+
+    在 \verb!\begin{document}! 之前使用。
+    用法：\verb!\usepackage{!\textit{宏包}\verb!}!
+
+
+    \subsection{标题}
+    \settowidth{\MyLen}{\texttt{.author.text.} }
+    \begin{tabular}{@{}p{\the\MyLen}%
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\author{!\textit{文本}\verb!}! & 文档作者。 \\
+        \verb!\title{!\textit{文本}\verb!}!  & 文档标题。 \\
+        \verb!\date{!\textit{文本}\verb!}!   & 日期。     \\
+    \end{tabular}
+
+    这些命令在 \verb!\begin{document}! 之前使用。声明
+    \verb!\maketitle! 放在文档顶部。
+
+    \subsection{其他}
+    \settowidth{\MyLen}{\texttt{.pagestyle.empty.} }
+    \begin{tabular}{@{}p{\the\MyLen}%
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\pagestyle{empty}! & 空页眉、页脚
+        且无页码。                                  \\
+        \verb!\tableofcontents!  & 在此处添加目录。 \\
+    \end{tabular}
+
+
+
+    \section{文档结构}
+    \begin{multicols}{2}
+        \verb!\part{!\textit{标题}\verb!}!  \\
+        \verb!\chapter{!\textit{标题}\verb!}!  \\
+        \verb!\section{!\textit{标题}\verb!}!  \\
+        \verb!\subsection{!\textit{标题}\verb!}!  \\
+        \verb!\subsubsection{!\textit{标题}\verb!}!  \\
+        \verb!\paragraph{!\textit{标题}\verb!}!  \\
+        \verb!\subparagraph{!\textit{标题}\verb!}!
+    \end{multicols}
+    {\raggedright
+    使用 \verb!\setcounter{secnumdepth}{!$x$\verb!}! 抑制深度 $>x$ 的标题
+    编号，其中 \verb!chapter! 的深度为0。
+    使用 \texttt{*}，如 \verb!\section*{!\textit{标题}\verb!}!，
+    不对特定项目编号---这些项目也不会出现
+    在目录中。
+    }
+
+    \subsection{文本环境}
+    \settowidth{\MyLen}{\texttt{.begin.quotation.}}
+    \begin{tabular}{@{}p{\the\MyLen}%
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\begin{comment}!   & 注释（不打印）。需要 \texttt{verbatim} 宏包。 \\
+        \verb!\begin{quote}!     & 缩进引用块。                                  \\
+        \verb!\begin{quotation}! & 类似 \texttt{quote}，但段落缩进。             \\
+        \verb!\begin{verse}!     & 诗歌引用块。
+    \end{tabular}
+
+    \subsection{列表}
+    \settowidth{\MyLen}{\texttt{.begin.description.}}
+    \begin{tabular}{@{}p{\the\MyLen}%
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\begin{enumerate}!   & 编号列表。                 \\
+        \verb!\begin{itemize}!     & 项目符号列表。             \\
+        \verb!\begin{description}! & 描述列表。                 \\
+        \verb!\item! \textit{文本} & 添加一个项目。             \\
+        \verb!\item[!\textit{x}\verb!]! \textit{文本}
+                                   & 使用 \textit{x} 代替正常的
+        项目符号或编号。描述列表必需。                          \\
+    \end{tabular}
+
+
+
+
+    \subsection{引用}
+    \settowidth{\MyLen}{\texttt{.pageref.marker..}}
+    \begin{tabular}{@{}p{\the\MyLen}
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\label{!\textit{标记}\verb!}!    & 设置交叉引用标记，
+        通常形式为 \verb!\label{sec:item}!。                               \\
+        \verb!\ref{!\textit{标记}\verb!}!      & 给出标记的章节/正文编号。 \\
+        \verb!\pageref{!\textit{标记}\verb!}!  & 给出标记的页码。          \\
+        \verb!\footnote{!\textit{文本}\verb!}! & 在页面底部打印脚注。      \\
+    \end{tabular}
+
+
+    \subsection{浮动体}
+    \settowidth{\MyLen}{\texttt{.begin.equation..place.}}
+    \begin{tabular}{@{}p{\the\MyLen}
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\begin{table}[!\textit{位置}\verb!]!    & 添加编号表格。 \\
+        \verb!\begin{figure}[!\textit{位置}\verb!]!   & 添加编号图形。 \\
+        \verb!\begin{equation}[!\textit{位置}\verb!]! & 添加编号公式。 \\
+        \verb!\caption{!\textit{文本}\verb!}!         & 浮动体标题。   \\
+    \end{tabular}
+
+    \textit{位置} 是浮动体有效位置的列表。\texttt{t}=顶部，
+    \texttt{h}=此处，\texttt{b}=底部，\texttt{p}=单独页面，\texttt{!}=即使难看也放置。标题和标签标记应在环境内。
+
+    %---------------------------------------------------------------------------
+
+    \section{文本属性}
+
+    \subsection{字体样式}
+    \newcommand{\FontCmd}[3]{\PBS\verb!\#1{!\textit{text}\verb!}!  \> %
+    \verb!{\#2 !\textit{text}\verb!}! \>
+    \#1{#3}}
+    \begin{tabular}{@{}l@{}l@{}l@{}}
+        \textit{命令}                             & \textit{声明} & \textit{效果} \\
+        \verb!\textrm{!\textit{文本}\verb!}!      &                               %
+        \verb!{\rmfamily !\textit{文本}\verb!}!   &                               %
+        \textrm{罗马字体族}                                                       \\
+        \verb!\textsf{!\textit{文本}\verb!}!      &                               %
+        \verb!{\sffamily !\textit{文本}\verb!}!   &                               %
+        \textsf{无衬线字体族}                                                     \\
+        \verb!\texttt{!\textit{文本}\verb!}!      &                               %
+        \verb!{\ttfamily !\textit{文本}\verb!}!   &                               %
+        \texttt{打字机字体族}                                                     \\
+        \verb!\textmd{!\textit{文本}\verb!}!      &                               %
+        \verb!{\mdseries !\textit{文本}\verb!}!   &                               %
+        \textmd{中等粗细}                                                         \\
+        \verb!\textbf{!\textit{文本}\verb!}!      &                               %
+        \verb!{\bfseries !\textit{文本}\verb!}!   &                               %
+        \textbf{粗体}                                                             \\
+        \verb!\textup{!\textit{文本}\verb!}!      &                               %
+        \verb!{\upshape !\textit{文本}\verb!}!    &                               %
+        \textup{直立形状}                                                         \\
+        \verb!\textit{!\textit{文本}\verb!}!      &                               %
+        \verb!{\itshape !\textit{文本}\verb!}!    &                               %
+        \textit{斜体}                                                             \\
+        \verb!\textsl{!\textit{文本}\verb!}!      &                               %
+        \verb!{\slshape !\textit{文本}\verb!}!    &                               %
+        \textsl{倾斜形状}                                                         \\
+        \verb!\textsc{!\textit{文本}\verb!}!      &                               %
+        \verb!{\scshape !\textit{文本}\verb!}!    &                               %
+        \textsc{小型大写字母}                                                     \\
+        \verb!\emph{!\textit{文本}\verb!}!        &                               %
+        \verb!{\em !\textit{文本}\verb!}!         &                               %
+        \emph{强调}                                                               \\
+        \verb!\textnormal{!\textit{文本}\verb!}!  &                               %
+        \verb!{\normalfont !\textit{文本}\verb!}! &                               %
+        \textnormal{文档字体}                                                     \\
+        \verb!\underline{!\textit{文本}\verb!}!   &                               %
+                                                  &                               %
+        \underline{下划线}
+    \end{tabular}
+
+    命令形式（t\textit{tt}t）比声明形式（t{\itshape tt}t）处理间距更好。
+
+    \subsection{字体大小}
+    \setlength{\columnsep}{14pt}
+    \begin{multicols}{2}
+        \begin{tabbing}
+            \verb!\footnotesize!          \= \kill
+            \verb!\tiny!                  \>  \tiny{极小} \\
+            \verb!\scriptsize!            \>  \scriptsize{脚本大小} \\
+            \verb!\footnotesize!          \>  \footnotesize{脚注大小} \\
+            \verb!\small!                 \>  \small{小} \\
+            \verb!\normalsize!            \>  \normalsize{正常大小} \\
+            \verb!\large!                 \>  \large{大} \\
+            \verb!\Large!                 \=  \Large{更大} \\  % Tab hack for new column
+            \verb!\LARGE!                 \>  \LARGE{很大} \\
+            \verb!\huge!                  \>  \huge{巨大} \\
+            \verb!\Huge!                  \>  \Huge{极大}
+        \end{tabbing}
+    \end{multicols}
+    \setlength{\columnsep}{1pt}
+
+    这些是声明，应该以
+    \verb!{\small! \ldots\verb!}! 的形式使用，或者不用大括号来影响整个
+    文档。
+
+
+    \subsection{逐字文本}
+
+    \settowidth{\MyLen}{\texttt{.begin.verbatim..} }
+    \begin{tabular}{@{}p{\the\MyLen}
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \verb@\begin{verbatim}@  & 逐字环境。                 \\
+        \verb@\begin{verbatim*}@ & 空格显示为 \verb*@ @。     \\
+        \verb@\verb!text!@       & 分隔符之间的文本（此例中为 %
+        `\texttt{!}'）是逐字的。
+    \end{tabular}
+
+
+    \subsection{对齐方式}
+    \begin{tabular}{@{}ll@{}}
+        \textit{环境}             & \textit{声明}       \\
+        \verb!\begin{center}!     & \verb!\centering!   \\
+        \verb!\begin{flushleft}!  & \verb!\raggedright! \\
+        \verb!\begin{flushright}! & \verb!\raggedleft!  \\
+    \end{tabular}
+
+    \subsection{其他}
+    \verb!\linespread{!$x$\verb!}! 通过乘数 $x$ 改变行距。
+
+
+
+
+    \section{文本模式符号}
+
+    \subsection{符号}
+    \begin{tabular}{@{}l@{\hspace{1em}}l@{\hspace{2em}}l@{\hspace{1em}}l@{\hspace{2em}}l@{\hspace{1em}}l@{\hspace{2em}}l@{\hspace{1em}}l@{}}
+        \&             & \verb!\&!             &
+        \_             & \verb!\_!             &
+        \ldots         & \verb!\ldots!         &
+        \textbullet    & \verb!\textbullet!      \\
+        \$             & \verb!\$!             &
+        \^{}           & \verb!\^{}!           &
+        \textbar       & \verb!\textbar!       &
+        \textbackslash & \verb!\textbackslash!   \\
+        \%             & \verb!\%!             &
+        \~{}           & \verb!\~{}!           &
+        \#             & \verb!\#!             &
+        \S             & \verb!\S!               \\
+    \end{tabular}
+
+    \subsection{重音符号}
+    \begin{tabular}{@{}l@{\ }l|l@{\ }l|l@{\ }l|l@{\ }l|l@{\ }l@{}}
+        \`o   & \verb!\`o!   &
+        \'o   & \verb!\'o!   &
+        \^o   & \verb!\^o!   &
+        \~o   & \verb!\~o!   &
+        \=o   & \verb!\=o!     \\
+        \.o   & \verb!\.o!   &
+        \"o   & \verb!\"o!   &
+        \c o  & \verb!\c o!  &
+        \v o  & \verb!\v o!  &
+        \H o  & \verb!\H o!    \\
+        \c c  & \verb!\c c!  &
+        \d o  & \verb!\d o!  &
+        \b o  & \verb!\b o!  &
+        \t oo & \verb!\t oo! &
+        \oe   & \verb!\oe!     \\
+        \OE   & \verb!\OE!   &
+        \ae   & \verb!\ae!   &
+        \AE   & \verb!\AE!   &
+        \aa   & \verb!\aa!   &
+        \AA   & \verb!\AA!     \\
+        \o    & \verb!\o!    &
+        \O    & \verb!\O!    &
+        \l    & \verb!\l!    &
+        \L    & \verb!\L!    &
+        \i    & \verb!\i!      \\
+        \j    & \verb!\j!    &
+        !`    & \verb!~`!    &
+        ?`    & \verb!?`!    &
+    \end{tabular}
+
+
+    \subsection{分隔符}
+    \begin{tabular}{@{}l@{\ }ll@{\ }ll@{\ }ll@{\ }ll@{\ }ll@{\ }l@{}}
+        `            & \verb!`!            &
+        ``           & \verb!``!           &
+        \{           & \verb!\{!           &
+        \lbrack      & \verb![!            &
+        (            & \verb!(!            &
+        \textless    & \verb!\textless!      \\
+        '            & \verb!'!            &
+        ''           & \verb!''!           &
+        \}           & \verb!\}!           &
+        \rbrack      & \verb!]!            &
+        )            & \verb!)!            &
+        \textgreater & \verb!\textgreater!   \\
+    \end{tabular}
+
+    \subsection{破折号}
+    \begin{tabular}{@{}llll@{}}
+        \textit{名称} & \textit{源码} & \textit{示例} & \textit{用法} \\
+        连字符        & \verb!-!      & X-ray         & 在单词中。    \\
+        短破折号      & \verb!--!     & 1--5          & 在数字之间。  \\
+        长破折号      & \verb!---!    & Yes---or no?  & 标点符号。
+    \end{tabular}
+
+
+    \subsection{换行和换页}
+    \settowidth{\MyLen}{\texttt{.pagebreak} }
+    \begin{tabular}{@{}p{\the\MyLen}
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\\!         & 开始新行而不开始新段落。 \\
+        \verb!\\*!        & 禁止在换行后分页。       \\
+        \verb!\kill!      & 不打印当前行。           \\
+        \verb!\pagebreak! & 开始新页。               \\
+        \verb!\noindent!  & 不缩进当前行。
+    \end{tabular}
+
+
+    \subsection{其他}
+    \settowidth{\MyLen}{\texttt{.rule.w..h.} }
+    \begin{tabular}{@{}p{\the\MyLen}
+        @{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\today!                        & \today。                                        \\
+        \verb!$\sim$!                        & 打印 $\sim$ 而不是 \verb!\~{}!，后者产生 \~{}。 \\
+        \verb!~!                             & 空格，禁止换行（\verb!W.J.~Clinton!）。         \\
+        \verb!\@.!                           & 当跟在大写字母后时，表示 \verb!.! 结束句子。    \\
+        \verb!\hspace{!$l$\verb!}!           & 长度为 $l$ 的水平空格
+        （例：$l=\mathtt{20pt}$）。                                                            \\
+        \verb!\vspace{!$l$\verb!}!           & 长度为 $l$ 的垂直空格。                         \\
+        \verb!\rule{!$w$\verb!}{!$h$\verb!}! & 宽度为 $w$、高度为 $h$ 的线条。                 \\
+    \end{tabular}
+
+
+
+    \section{表格环境}
+
+    \subsection{\texttt{tabbing} 环境}
+    \begin{tabular}{@{}l@{\hspace{1.5ex}}l@{\hspace{10ex}}l@{\hspace{1.5ex}}l@{}}
+        \verb!\=! & 设置制表位。 &
+        \verb!\>! & 跳到制表位。
+    \end{tabular}
+
+    制表位可以在"不可见"行上设置，行末使用 \verb!\kill!。
+    通常使用 \verb!\\! 分隔行。
+
+
+    \subsection{\texttt{tabular} 环境}
+    \verb!\begin{array}[!\textit{位置}\verb!]{!\textit{列}\verb!}!   \\
+    \verb!\begin{tabular}[!\textit{位置}\verb!]{!\textit{列}\verb!}! \\
+    \verb!\begin{tabular*}{!\textit{宽度}\verb!}[!\textit{位置}\verb!]{!\textit{列}\verb!}!
+
+
+    \subsubsection{\texttt{tabular} 列规格}
+    \settowidth{\MyLen}{\texttt{p}\{\textit{width}\} \ }
+    \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+        \texttt{l}                     & 左对齐列。                \\
+        \texttt{c}                     & 居中列。                  \\
+        \texttt{r}                     & 右对齐列。                \\
+        \verb!p{!\textit{宽度}\verb!}! & 与
+        \verb!\parbox[t]{!\textit{宽度}\verb!}! 相同。             \\
+        \verb!@{!\textit{声明}\verb!}! & 插入 \textit{声明} 而不是
+        列间空格。                                                 \\
+        \verb!|!                       & 在列之间插入垂直线。
+    \end{tabular}
+
+
+    \subsubsection{\texttt{tabular} 元素}
+    \settowidth{\MyLen}{\texttt{.cline.x-y..}}
+    \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\hline!                        & 行间水平线。                                          \\
+        \verb!\cline{!$x$\verb!-!$y$\verb!}! &
+        跨越第 $x$ 到第 $y$ 列的水平线。                                                             \\
+        \verb!\multicolumn{!\textit{n}\verb!}{!\textit{列}\verb!}{!\textit{文本}\verb!}!             \\
+                                             & 跨越 \textit{n} 列的单元格，具有 \textit{列} 列规格。
+    \end{tabular}
+
+    \section{数学模式}
+    对于行内数学，使用 \verb!\(...\)! 或 \verb!$...$!。
+    对于显示数学，使用 \verb!\[...\]! 或 \verb!\begin{equation}!。
+
+    \begin{tabular}{@{}l@{\hspace{1em}}l@{\hspace{2em}}l@{\hspace{1em}}l@{}}
+        上标$^{x}$         &
+        \verb!^{x}!        &
+        下标$_{x}$         &
+        \verb!_{x}!          \\
+        $\frac{x}{y}$      &
+        \verb!\frac{x}{y}! &
+        $\sum_{k=1}^n$     &
+        \verb!\sum_{k=1}^n!  \\
+        $\sqrt[n]{x}$      &
+        \verb!\sqrt[n]{x}! &
+        $\prod_{k=1}^n$    &
+        \verb!\prod_{k=1}^n! \\
+    \end{tabular}
+
+    \subsection{数学模式符号}
+
+    \begin{tabular}{@{}l@{\hspace{1ex}}l@{\hspace{1em}}l@{\hspace{1ex}}l@{\hspace{1em}}l@{\hspace{1ex}} l@{\hspace{1em}}l@{\hspace{1ex}}l@{}}
+        $\leq$            & \verb!\leq!            &
+        $\geq$            & \verb!\geq!            &
+        $\neq$            & \verb!\neq!            &
+        $\approx$         & \verb!\approx!           \\
+        $\times$          & \verb!\times!          &
+        $\div$            & \verb!\div!            &
+        $\pm$             & \verb!\pm!             &
+        $\cdot$           & \verb!\cdot!             \\
+        $^{\circ}$        & \verb!^{\circ}!        &
+        $\circ$           & \verb!\circ!           &
+        $\prime$          & \verb!\prime!          &
+        $\cdots$          & \verb!\cdots!            \\
+        $\infty$          & \verb!\infty!          &
+        $\neg$            & \verb!\neg!            &
+        $\wedge$          & \verb!\wedge!          &
+        $\vee$            & \verb!\vee!              \\
+        $\supset$         & \verb!\supset!         &
+        $\forall$         & \verb!\forall!         &
+        $\in$             & \verb!\in!             &
+        $\rightarrow$     & \verb!\rightarrow!       \\
+        $\subset$         & \verb!\subset!         &
+        $\exists$         & \verb!\exists!         &
+        $\notin$          & \verb!\notin!          &
+        $\Rightarrow$     & \verb!\Rightarrow!       \\
+        $\cup$            & \verb!\cup!            &
+        $\cap$            & \verb!\cap!            &
+        $\mid$            & \verb!\mid!            &
+        $\Leftrightarrow$ & \verb!\Leftrightarrow!   \\
+        $\dot a$          & \verb!\dot a!          &
+        $\hat a$          & \verb!\hat a!          &
+        $\bar a$          & \verb!\bar a!          &
+        $\tilde a$        & \verb!\tilde a!          \\
+
+        $\alpha$          & \verb!\alpha!          &
+        $\beta$           & \verb!\beta!           &
+        $\gamma$          & \verb!\gamma!          &
+        $\delta$          & \verb!\delta!            \\
+        $\epsilon$        & \verb!\epsilon!        &
+        $\zeta$           & \verb!\zeta!           &
+        $\eta$            & \verb!\eta!            &
+        $\varepsilon$     & \verb!\varepsilon!       \\
+        $\theta$          & \verb!\theta!          &
+        $\iota$           & \verb!\iota!           &
+        $\kappa$          & \verb!\kappa!          &
+        $\vartheta$       & \verb!\vartheta!         \\
+        $\lambda$         & \verb!\lambda!         &
+        $\mu$             & \verb!\mu!             &
+        $\nu$             & \verb!\nu!             &
+        $\xi$             & \verb!\xi!               \\
+        $\pi$             & \verb!\pi!             &
+        $\rho$            & \verb!\rho!            &
+        $\sigma$          & \verb!\sigma!          &
+        $\tau$            & \verb!\tau!              \\
+        $\upsilon$        & \verb!\upsilon!        &
+        $\phi$            & \verb!\phi!            &
+        $\chi$            & \verb!\chi!            &
+        $\psi$            & \verb!\psi!              \\
+        $\omega$          & \verb!\omega!          &
+        $\Gamma$          & \verb!\Gamma!          &
+        $\Delta$          & \verb!\Delta!          &
+        $\Theta$          & \verb!\Theta!            \\
+        $\Lambda$         & \verb!\Lambda!         &
+        $\Xi$             & \verb!\Xi!             &
+        $\Pi$             & \verb!\Pi!             &
+        $\Sigma$          & \verb!\Sigma!            \\
+        $\Upsilon$        & \verb!\Upsilon!        &
+        $\Phi$            & \verb!\Phi!            &
+        $\Psi$            & \verb!\Psi!            &
+        $\Omega$          & \verb!\Omega!
+    \end{tabular}
+    \footnotesize
+
+    \subsection{特殊符号}
+    \begin{tabular}{@{}ll@{}}
+        $^{\circ}$ & \verb!^{\circ}! 例：$22^{\circ}\mathrm{C}$: \verb!$22^{\circ}\mathrm{C}$!.
+    \end{tabular}
+
+    \section{参考文献和引用}
+    使用 \BibTeX\ 时，需要运行 \texttt{latex}、\texttt{bibtex}，
+    然后再运行两次 \texttt{latex} 来解决依赖关系。
+
+    \subsection{引用类型}
+    \settowidth{\MyLen}{\texttt{.shortciteN.key..}}
+    \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+        \verb!\cite{!\textit{键}\verb!}!       &
+        完整作者列表和年份。(Watson and Crick 1953) \\
+        \verb!\citeA{!\textit{键}\verb!}!      &
+        完整作者列表。(Watson and Crick)            \\
+        \verb!\citeN{!\textit{键}\verb!}!      &
+        完整作者列表和年份。Watson and Crick (1953) \\
+        \verb!\shortcite{!\textit{键}\verb!}!  &
+        缩写作者列表和年份。?                       \\
+        \verb!\shortciteA{!\textit{键}\verb!}! &
+        缩写作者列表。?                             \\
+        \verb!\shortciteN{!\textit{键}\verb!}! &
+        缩写作者列表和年份。?                       \\
+        \verb!\citeyear{!\textit{键}\verb!}!   &
+        仅引用年份。(1953)                          \\
+    \end{tabular}
+
+    以上所有命令都有不带括号的 \texttt{NP} 变体；
+    例如 \verb!\citeNP!。
+
+
+    \subsection{\BibTeX\ 条目类型}
+    \settowidth{\MyLen}{\texttt{.mastersthesis.}}
+    \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+        \verb!@article!       & 期刊或杂志文章。             \\
+        \verb!@book!          & 有出版商的书籍。             \\
+        \verb!@booklet!       & 无出版商的书籍。             \\
+        \verb!@conference!    & 会议论文集中的文章。         \\
+        \verb!@inbook!        & 书籍的一部分和/或页面范围。  \\
+        \verb!@incollection!  & 有自己标题的书籍部分。       \\
+        \verb!@manual!        & 技术文档。                   \\
+        \verb!@mastersthesis! & 硕士论文。                   \\
+        \verb!@misc!          & 如果其他都不适合。           \\
+        \verb!@phdthesis!     & 博士论文。                   \\
+        \verb!@proceedings!   & 会议论文集。                 \\
+        \verb!@techreport!    & 技术报告，通常在系列中编号。 \\
+        \verb!@unpublished!   & 未发表。                     \\
+    \end{tabular}
+
+    \subsection{\BibTeX\ 字段}
+    \settowidth{\MyLen}{\texttt{organization.}}
+    \begin{tabular}{@{}p{\the\MyLen}@{}p{\linewidth-\the\MyLen}@{}}
+        \verb!address!      & 出版商地址。主要出版商不必要。 \\
+        \verb!author!       & 作者姓名，格式为 ....          \\
+        \verb!booktitle!    & 引用其部分时的书名。           \\
+        \verb!chapter!      & 章节或部分编号。               \\
+        \verb!edition!      & 书籍版本。                     \\
+        \verb!editor!       & 编辑者姓名。                   \\
+        \verb!institution!  & 技术报告的赞助机构。           \\
+        \verb!journal!      & 期刊名称。                     \\
+        \verb!key!          & 无作者时用于交叉引用。         \\
+        \verb!month!        & 发表月份。使用3字母缩写。      \\
+        \verb!note!         & 任何附加信息。                 \\
+        \verb!number!       & 期刊或杂志编号。               \\
+        \verb!organization! & 赞助会议的组织。               \\
+        \verb!pages!        & 页面范围（\verb!2,6,9--12!）。 \\
+        \verb!publisher!    & 出版商名称。                   \\
+        \verb!school!       & 学校名称（用于论文）。         \\
+        \verb!series!       & 丛书名称。                     \\
+        \verb!title!        & 作品标题。                     \\
+        \verb!type!         & 技术报告类型，例如"研究报告"。 \\
+        \verb!volume!       & 期刊或书籍卷号。               \\
+        \verb!year!         & 发表年份。                     \\
+    \end{tabular}
+    不是所有字段都需要填写。见下面的示例。
+
+    \subsection{常用 \BibTeX\ 样式文件}
+    \begin{tabular}{@{}l@{\hspace{1em}}l@{\hspace{3em}}l@{\hspace{1em}}l@{}}
+        \verb!abbrv!    & 标准                    &
+        \verb!abstract! & 带摘要的 \texttt{alpha}   \\
+        \verb!alpha!    & 标准                    &
+        \verb!apa!      & APA                       \\
+        \verb!plain!    & 标准                    &
+        \verb!unsrt!    & 未排序                    \\
+    \end{tabular}
+
+    \LaTeX\ 文档应该在
+    \verb!\end{document}! 之前有以下两行，其中 \verb!bibfile.bib! 是
+    \BibTeX\ 文件的名称。
+    \begin{verbatim}
+\bibliographystyle{plain}
+\bibliography{bibfile}
+\end{verbatim}
+
+    \subsection{\BibTeX\ 示例}
+    \BibTeX\ 数据库放在名为
+    \textit{文件}\texttt{.bib} 的文件中，用 \verb!bibtex file! 处理。
+    \begin{verbatim}
+@String{N = {Na\-ture}}
+@Article{WC:1953,
+  author  = {James Watson and Francis Crick},
+  title   = {A structure for Deoxyribose Nucleic Acid},
+  journal = N,
+  volume  = {171},
+  pages   = {737},
+  year    = 1953
+}
+\end{verbatim}
+
+
+    \section{示例 \LaTeX\ 文档}
+    \begin{verbatim}
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\title{模板}
+\author{姓名}
+\begin{document}
+\maketitle
+
+\section{章节}
+\subsection*{无编号的小节}
+文本 \textbf{粗体文本} 文本。一些数学：$2+2=5$
+\subsection{小节}
+文本 \emph{强调文本} 文本。\cite{WC:1953}
+发现了DNA的结构。
+
+一个表格：
+\begin{table}[!th]
+\begin{tabular}{|l|c|r|}
+\hline
+第一  &  行  &  数据 \\
+第二 &  行  &  数据 \\
+\hline
+\end{tabular}
+\caption{这是标题}
+\label{ex:table}
+\end{table}
+
+表格编号为 \ref{ex:table}。
+\end{document}
+\end{verbatim}
+
+
+
+    \rule{0.3\linewidth}{0.25pt}
+    \scriptsize
+
+    版权所有 \copyright\ 2014 Winston Chang \href{http://wch.github.io/latexsheet/}{http://wch.github.io/latexsheet}\\
+    汉化 \copyright\ 2025 Ahzyuan \href{https://github.com/Ahzyuan/Latex-Cheat-Sheet}{github.com/Ahzyuan/Latex-Cheat-Sheet}
+
+\end{multicols}
+\end{document}
