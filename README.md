@@ -4,6 +4,11 @@
 
 本项目对 [wch/latexsheet](https://github.com/wch/latexsheet) 进行了汉化，旨在为中文用户提供一份易于查找、使用的 LaTeX 参考查询表。
 
+<div style="display:inline-block">
+    <img src="assets/zh_page1.png"  width="48%" alt="page1">
+    <img src="assets/zh_page2.png"  width="48%" alt="page2">
+</div>
+
 ## 文件说明
 
 ```bash
@@ -14,8 +19,9 @@ Latex-Cheat-Sheet/
 ├── zh
 │   ├── latexsheet.tex # 汉化版本 LaTeX 文件
 │   └── latexsheet.pdf # 汉化版本编译 PDF 文件
+├── assets/            # 汉化版 PDF 截图
 ├── README.md
-└── License.md # CC BY-NC-SA 3.0 协议
+└── License.md         # CC BY-NC-SA 3.0 协议
 ```
 
 ## 使用声明
